@@ -14,6 +14,9 @@ export class CreatePdfService {
     const brasaoCivil = './brasao-civil.png';
 
     const docDefinition = {
+      info: {
+        title: 'Pedido de Identificação Criminal  - Pedido: 1',
+      },
       content: [
         {
           columns: [
