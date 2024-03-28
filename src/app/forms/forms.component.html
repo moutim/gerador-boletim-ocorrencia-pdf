@@ -1,1 +1,43 @@
-<button (click)="createPDF()">Gerar</button>
+<form class="form-pdf" [formGroup]="forms">
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Tipo de identificação</mat-label>
+      <input matInput placeholder="Ex. CRM" formControlName="identificacao">
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Delegacia/Órgão Instaurador do IPL</mat-label>
+      <input matInput placeholder="Ex. 100 DP" formControlName="delegacia">
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Número de IPL/TCO/LRE</mat-label>
+      <input matInput placeholder="Ex. 12345" formControlName="numeroIPL">
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Flagrante</mat-label>
+      <mat-select formControlName="flagrante">
+        <mat-option value="SIM">Sim</mat-option>
+        <mat-option value="NAO">Não</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>UF</mat-label>
+      <mat-select formControlName="flagrante">
+        <div *ngIf="states.length">
+          <mat-option
+          *ngFor="let item of states"
+          value="a"
+          >{{ item["sigla"] }}</mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</form>
+
+<button (click)="onSubmit()" mat-raised-button color="primary" type="submit">Gerar pedido</button>

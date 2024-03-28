@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FormsPDFModule } from './forms/forms-pdf.module';
+import { NavbarModule } from './navbar/navbar.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,11 +15,13 @@ import { FormsPDFModule } from './forms/forms-pdf.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsPDFModule
+    FormsPDFModule,
+    NavbarModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })
