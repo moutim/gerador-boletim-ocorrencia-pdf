@@ -3,16 +3,19 @@
     <mat-form-field class="width-input">
       <mat-label>Tipo de identificação</mat-label>
       <input matInput placeholder="Ex. CRM" formControlName="identificacao">
+      <mat-hint>Ex. CRM</mat-hint>
     </mat-form-field>
 
     <mat-form-field class="width-input">
       <mat-label>Delegacia/Órgão Instaurador do IPL</mat-label>
       <input matInput placeholder="Ex. 100 DP" formControlName="delegacia">
+      <mat-hint>Ex. 101º DP</mat-hint>
     </mat-form-field>
 
     <mat-form-field class="width-input">
       <mat-label>Número de IPL/TCO/LRE</mat-label>
       <input matInput placeholder="Ex. 12345" formControlName="numeroIPL">
+      <mat-hint>Ex. 12345</mat-hint>
     </mat-form-field>
 
     <mat-form-field class="width-input">
@@ -21,20 +24,332 @@
         <mat-option value="SIM">Sim</mat-option>
         <mat-option value="NAO">Não</mat-option>
       </mat-select>
+      <mat-hint>Ex. SIM</mat-hint>
     </mat-form-field>
   </div>
 
   <div>
     <mat-form-field class="width-input">
       <mat-label>UF</mat-label>
-      <mat-select formControlName="flagrante">
+      <mat-select formControlName="UF">
         <div *ngIf="states.length">
-          <mat-option
-          *ngFor="let item of states"
-          value="a"
-          >{{ item["sigla"] }}</mat-option>
+          <mat-option *ngFor="let item of states" [value]="item['sigla']">{{ item["sigla"] }}</mat-option>
         </div>
       </mat-select>
+      <mat-hint>Ex. SP</mat-hint>
+    </mat-form-field>
+
+    <!-- <mat-form-field class="width-input">
+      <mat-label>Município</mat-label>
+      <input type="text" placeholder="Escolha um" aria-label="Number" matInput [formControl]="myControl"
+        [matAutocomplete]="auto" formControlName="municipio">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let item of filteredOptions | async" [value]="item['nome']">{{ item["nome"] }}</mat-option>
+      </mat-autocomplete>
+      <mat-hint>Ex. São Paulo</mat-hint>
+    </mat-form-field> -->
+
+    <mat-form-field class="width-input">
+      <mat-label>Município</mat-label>
+      <mat-select formControlName="municipio">
+        <div *ngIf="counties.length">
+          <mat-option *ngFor="let item of counties" [value]="item['id']">{{ item["nome"] }}</mat-option>
+        </div>
+      </mat-select>
+      <mat-hint>Ex. São Paulo</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="fill" class="width-input">
+      <mat-label>Autuação</mat-label>
+      <input matInput placeholder="01/01/2024" formControlName="autuacao">
+      <mat-icon matSuffix>calendar_month</mat-icon>
+      <mat-hint>DD/MM/AAAA</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="width-input">
+      <mat-label>Abertura</mat-label>
+      <input matInput placeholder="01/01/2024" formControlName="abertura">
+      <mat-icon matSuffix>calendar_month</mat-icon>
+      <mat-hint>DD/MM/AAAA</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="width-input">
+      <mat-label>Conclusão</mat-label>
+      <input matInput placeholder="01/01/2024" formControlName="conclusao">
+      <mat-icon matSuffix>calendar_month</mat-icon>
+      <mat-hint>DD/MM/AAAA</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="fill" class="width-input">
+      <mat-label>Nome do indiciado</mat-label>
+      <input matInput formControlName="nomeIndiciado">
+      <mat-hint>Nome completo</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="width-input">
+      <mat-label>Alcunha(s)</mat-label>
+      <input matInput formControlName="alcunha">
+      <mat-hint>Um ou mais alcunha(s)</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="fill" class="width-input">
+      <mat-label>Filiação 1</mat-label>
+      <input matInput formControlName="filiacao1">
+      <mat-hint>Nome da mãe</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="width-input">
+      <mat-label>Filiação 2</mat-label>
+      <input matInput formControlName="filiacao2">
+      <mat-hint>Nome da pai</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Sexo</mat-label>
+      <mat-select formControlName="sexo">
+        <mat-option value="Masculino">Masculino</mat-option>
+        <mat-option value="Feminino">Feminino</mat-option>
+      </mat-select>
+      <mat-hint>Ex. Masculino</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="width-input">
+      <mat-label>Data de nascimento</mat-label>
+      <input matInput placeholder="01/01/2024" formControlName="dataDeNascimento">
+      <mat-icon matSuffix>calendar_month</mat-icon>
+      <mat-hint>DD/MM/AAAA</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>UF de Nascimento</mat-label>
+      <mat-select formControlName="UFNascimento">
+        <div *ngIf="bornStates.length">
+          <mat-option *ngFor="let item of bornStates" [value]="item['sigla']">{{ item["sigla"] }}</mat-option>
+        </div>
+      </mat-select>
+      <mat-hint>Ex. SP</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Município de Nascimento</mat-label>
+      <mat-select formControlName="municipioNascimento">
+        <div *ngIf="bornCounties.length">
+          <mat-option *ngFor="let item of bornCounties" [value]="item['id']">{{ item["nome"] }}</mat-option>
+        </div>
+      </mat-select>
+      <mat-hint>Ex. São Paulo</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Estado Civil</mat-label>
+      <input matInput placeholder="Ex. Casado" formControlName="estadoCivil">
+      <mat-hint>Ex. Casado</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Instrução</mat-label>
+      <input matInput placeholder="Ex. Superior" formControlName="instrucao">
+      <mat-hint>Ex. Superior</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Titulo de Eleitor/Zona/Seção</mat-label>
+      <input matInput placeholder="Ex. 98765432109876/999/9999" formControlName="tituloEleitor">
+      <mat-hint>Ex. 987654/999/9999</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Número do RG</mat-label>
+      <input matInput placeholder="Ex. 12345678X" formControlName="numeroRG">
+      <mat-hint>Ex. 12345678X</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>UF do RG</mat-label>
+      <mat-select formControlName="UFDocumento">
+        <div *ngIf="statesDocument.length">
+          <mat-option *ngFor="let item of statesDocument" [value]="item['sigla']">{{ item["sigla"] }}</mat-option>
+        </div>
+      </mat-select>
+      <mat-hint>Ex. SP</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Número do CPF</mat-label>
+      <input matInput placeholder="Ex. 12345678X" formControlName="numeroCPF">
+      <mat-hint>Ex. 12345678901</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Número de dependentes</mat-label>
+      <input matInput placeholder="Ex. 1" formControlName="dependentes">
+      <mat-hint>Ex. 1</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Profissão</mat-label>
+      <input matInput placeholder="Ex. Autônomo" formControlName="profissao">
+      <mat-hint>Ex. Autônomo</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Policial responsável pela prisão</mat-label>
+      <input matInput placeholder="Ex. Bombeiro" formControlName="policial">
+      <mat-hint>Ex. Bombeiro</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>CEP</mat-label>
+      <input matInput placeholder="Ex. 01234567" formControlName="CEP">
+      <mat-hint>Ex. 01234567</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Endereço</mat-label>
+      <input matInput placeholder="Ex. Praça da Sé" formControlName="endereco">
+      <mat-hint>Ex. Praça da Sé</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Bairro</mat-label>
+      <input matInput placeholder="Ex. Sé" formControlName="bairro">
+      <mat-hint>Ex. Sé</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Município - Estado</mat-label>
+      <input matInput placeholder="Ex. São Paulo - SP" formControlName="municipioEstado">
+      <mat-hint>Ex. São Paulo - SP</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Número</mat-label>
+      <input matInput placeholder="Ex. 1000" formControlName="numero">
+      <mat-hint>Ex. 1000</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Complemento</mat-label>
+      <input matInput placeholder="Ex. APTO 136" formControlName="complemento">
+      <mat-hint>Ex. APTO 136</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Telefone (DDD e Número)</mat-label>
+      <input matInput placeholder="Ex. APTO 136" formControlName="numeroTelefone">
+      <mat-hint>Ex. (11) 91234-5678</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Nome das vítimas</mat-label>
+      <input matInput placeholder="Ex. Vítima 1, Vítima 2" formControlName="vitimas">
+      <mat-hint>Ex. Vítima 1, Vítima 2</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Infração Penal</mat-label>
+      <input matInput placeholder="Ex. Art. 157 - Subtrair coisa móvel..." formControlName="infracao">
+      <mat-hint>Ex. Art. 157 - Subtrair coisa móvel...</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Número do processo</mat-label>
+      <input matInput placeholder="Ex. 43214" formControlName="numeroProcesso">
+      <mat-hint>Ex. 43214</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Órgão/Vara do processo</mat-label>
+      <input matInput placeholder="Ex. 10º Vara Criminal da Capital" formControlName="orgaoProcesso">
+      <mat-hint>Ex. 10º Vara Criminal da Capital</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Situação do processo</mat-label>
+      <mat-select formControlName="situacaoProcesso">
+        <mat-option value="EM ANDAMENTO">Em Andamento</mat-option>
+        <mat-option value="ENCERRADO">Encerrado</mat-option>
+      </mat-select>
+      <mat-hint>Ex. Em Andamento</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Número do mandado</mat-label>
+      <input matInput placeholder="Ex. MANDAD101010" formControlName="numeroMandado">
+      <mat-hint>Ex. MANDAD101010</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="width-input">
+      <mat-label>Expedição</mat-label>
+      <input matInput placeholder="01/01/2024" formControlName="expedicaoMandado">
+      <mat-icon matSuffix>calendar_month</mat-icon>
+      <mat-hint>DD/MM/AAAA</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Órgão/Vara do mandado</mat-label>
+      <input matInput placeholder="Ex. 10º Vara Criminal da Capital" formControlName="orgaoMandado">
+      <mat-hint>Ex. 1001º Vara Criminal da Capital</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Situação do mandado</mat-label>
+      <mat-select formControlName="situacaoMandado">
+        <mat-option value="EM ANDAMENTO">Em Andamento</mat-option>
+        <mat-option value="ENCERRADO">Encerrado</mat-option>
+      </mat-select>
+      <mat-hint>Ex. Em Andamento</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Porte de arma</mat-label>
+      <input matInput placeholder="Ex. 1234567" formControlName="porteArma">
+      <mat-hint>Ex. 1234567</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="width-input">
+      <mat-label>Órgão emissor - UF</mat-label>
+      <input matInput placeholder="Ex. SSP - SP" formControlName="orgaoEmissorArma">
+      <mat-hint>Ex. SSP - SP</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="width-input">
+      <mat-label>Identificação</mat-label>
+      <input matInput placeholder="01/01/2024" formControlName="identificacaoArma">
+      <mat-icon matSuffix>calendar_month</mat-icon>
+      <mat-hint>DD/MM/AAAA</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Observações</mat-label>
+      <textarea formControlName="observacoes" matInput></textarea>
+      <mat-hint>Identificação direita</mat-hint>
     </mat-form-field>
   </div>
 

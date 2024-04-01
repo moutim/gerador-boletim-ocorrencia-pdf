@@ -3,6 +3,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import images from '../../assets/images-pdf';
+import { IPDFInfo } from '../interfaces/IPDFInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import images from '../../assets/images-pdf';
 export class CreatePdfService {
   constructor() { }
 
-  createPDF() {
+  createPDF(infos: IPDFInfo) {
     const docDefinition = {
       info: {
         title: 'Pedido de Identificação Criminal  - Pedido: 1',
@@ -45,7 +46,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'CRM',
+                      text: infos.identificacao || ' ',
                       style: ['content'],
                     },
                   ],
@@ -57,7 +58,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '101º DP',
+                      text: infos.delegacia || ' ',
                       style: ['content'],
                     },
                   ],
@@ -72,7 +73,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '1234',
+                      text: infos.numeroIPL || ' ',
                       style: ['content'],
                     },
                   ],
@@ -84,7 +85,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'SIM',
+                      text: infos.flagrante,
                       style: ['content'],
                     },
                   ],
@@ -98,7 +99,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'GRAJAS',
+                      text: infos.municipio,
                       style: ['content'],
                     },
                   ],
@@ -112,7 +113,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'SP',
+                      text: infos.UF,
                       style: ['content'],
                     },
                   ],
@@ -124,7 +125,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '28/03/2024',
+                      text: infos.autuacao,
                       style: ['content'],
                     },
                   ],
@@ -136,7 +137,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '28/03/2024',
+                      text: infos.abertura,
                       style: ['content'],
                     },
                   ],
@@ -148,7 +149,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '28/03/2024',
+                      text: infos.conclusao,
                       style: ['content'],
                     },
                   ],
@@ -162,7 +163,7 @@ export class CreatePdfService {
                       style: 'title'
                     },
                     {
-                      text: 'VITOR HUGO MOUTIM',
+                      text: infos.nomeIndiciado,
                       style: ['content']
                     }
                   ],
@@ -182,7 +183,7 @@ export class CreatePdfService {
                       style: 'title'
                     },
                     {
-                      text: 'MOUTIM',
+                      text: infos.alcunha,
                       style: ['content']
                     }
                   ],
@@ -202,7 +203,7 @@ export class CreatePdfService {
                       style: 'title'
                     },
                     {
-                      text: 'SILVA HUGO MOUTIM',
+                      text: infos.filiacao1,
                       style: ['content']
                     }
                   ],
@@ -222,7 +223,7 @@ export class CreatePdfService {
                       style: 'title'
                     },
                     {
-                      text: 'MOUTIM HUGO VITOR',
+                      text: infos.filiacao2,
                       style: ['content']
                     }
                   ],
@@ -250,7 +251,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Masculino',
+                      text: infos.sexo == 'MASCULINO' ? 'M' : 'F',
                       style: ['content'],
                     },
                   ],
@@ -262,7 +263,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '22/05/2001',
+                      text: infos.dataDeNascimento,
                       style: ['content'],
                     },
                   ],
@@ -276,7 +277,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Interlagos',
+                      text: infos.municipioNascimento,
                       style: ['content'],
                     },
                   ],
@@ -290,7 +291,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'SP',
+                      text: infos.UFNascimento,
                       style: ['content'],
                     },
                   ],
@@ -302,7 +303,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Casado',
+                      text: infos.estadoCivil,
                       style: ['content'],
                     },
                   ],
@@ -314,7 +315,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Superior',
+                      text: infos.instrucao,
                       style: ['content'],
                     },
                   ],
@@ -342,7 +343,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '53182455-X',
+                      text: infos.numeroRG,
                       style: ['content'],
                     },
                   ],
@@ -368,7 +369,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'SP',
+                      text: infos.UFDocumento,
                       style: ['content'],
                     },
                   ],
@@ -380,7 +381,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '51225511895',
+                      text: infos.numeroCPF,
                       style: ['content'],
                     },
                   ],
@@ -392,7 +393,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'CIVIL',
+                      text: infos.policial,
                       style: ['content'],
                     },
                   ],
@@ -434,7 +435,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '1112223334/777/999',
+                      text: infos.tituloEleitor,
                       style: [{ fontSize: 8, lineHeight: 0.85 }],
                     },
                   ],
@@ -448,7 +449,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '1',
+                      text: infos.dependentes,
                       style: ['content'],
                     },
                   ],
@@ -462,7 +463,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Engenheiro de Software Junior',
+                      text: infos.profissao,
                       style: ['content'],
                     },
                   ],
@@ -492,7 +493,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Rua Affonso Paulillo',
+                      text: infos.endereco,
                       style: ['content'],
                     },
                   ],
@@ -506,7 +507,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '14',
+                      text: infos.numero,
                       style: ['content'],
                     },
                   ],
@@ -518,7 +519,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'C',
+                      text: infos.complemento,
                       style: ['content'],
                     },
                   ],
@@ -532,7 +533,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Jardim Eliana',
+                      text: infos.bairro,
                       style: ['content'],
                     },
                   ],
@@ -544,7 +545,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Grajaú',
+                      text: infos.municipioEstado,
                       style: ['content'],
                     },
                   ],
@@ -556,7 +557,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '04851-250',
+                      text: infos.CEP,
                       style: ['content'],
                     },
                   ],
@@ -568,7 +569,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '(11) 99818-1280',
+                      text: infos.numeroTelefone,
                       style: ['content'],
                     },
                   ],
@@ -582,7 +583,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'HUGO VITOR SILVA',
+                      text: infos.vitimas,
                       style: ['content'],
                     },
                   ],
@@ -597,7 +598,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Art. 157 - Subtrair coisa móvel alheia, para si ou para outrem, mediante grave ameaça ou violência a pessoa, ou depois de havê-la, por qualquer meio, reduzido à impossibilidade de resistência.',
+                      text: infos.infracao,
                       style: ['content'],
                     },
                   ],
@@ -612,7 +613,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '12345',
+                      text: infos.numeroProcesso,
                       style: ['content'],
                     },
                   ],
@@ -624,7 +625,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '777º VARA CRIMINAL DE SÃO PAULO',
+                      text: infos.orgaoProcesso,
                       style: ['content'],
                     },
                   ],
@@ -638,7 +639,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Em Andamento',
+                      text: infos.situacaoProcesso,
                       style: ['content'],
                     },
                   ],
@@ -652,7 +653,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'MANDAD157777',
+                      text: infos.numeroMandado,
                       style: ['content'],
                     },
                   ],
@@ -664,7 +665,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '28/03/2024',
+                      text: infos.expedicaoMandado,
                       style: ['content'],
                     },
                   ],
@@ -676,7 +677,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '77ª VARA CRIMINAL BARRA FUNDA',
+                      text: infos.orgaoMandado,
                       style: ['content'],
                     },
                   ],
@@ -688,7 +689,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'ENCERRADO',
+                      text: infos.situacaoMandado,
                       style: ['content'],
                     },
                   ],
@@ -702,7 +703,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '147528963',
+                      text: infos.porteArma,
                       style: ['content'],
                     },
                   ],
@@ -714,7 +715,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'SSP - SP',
+                      text: infos.orgaoEmissorArma,
                       style: ['content'],
                     },
                   ],
@@ -728,7 +729,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: '18/08/2023',
+                      text: infos.identificacaoArma,
                       style: ['content'],
                     },
                   ],
@@ -742,7 +743,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: 'Observações sobre o gerador de ficha criminal',
+                      text: infos.observacoes,
                       style: ['content'],
                     },
                   ],

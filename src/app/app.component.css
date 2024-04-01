@@ -1,4 +1,10 @@
 .forms-section {
-  width: 80%;
+  width: 90%;
   margin: auto;
+}
+
+h2 {
+  text-align: center;
+  font-size: 30px;
+  margin: 25px 0;
 }
