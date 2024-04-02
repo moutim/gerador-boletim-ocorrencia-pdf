@@ -16,10 +16,7 @@ export class FormsComponent {
   bornStates: [] = [];
   bornCounties: [] = [];
   statesDocument: [] = [];
-
-  myControl = new FormControl('');
-  filteredOptions: Observable<any[]> = of([]);
-  options: string[] = ['One', 'Two', 'Three'];
+  filteredCounties: any[] = [];
 
   constructor(
     private pdfService: CreatePdfService,
@@ -75,31 +72,21 @@ export class FormsComponent {
       orgaoEmissorArma: [null, Validators.required],
       identificacaoArma: [null, Validators.required],
       observacoes: [null, Validators.required],
+      filter: [null, Validators.required],
     });
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
-
     this.getStates();
-
-    this.setUpperCaseOnInputChange();
 
     this.forms.get('UF')!.valueChanges.subscribe((value) => {
       setTimeout(() => {
         this.getCounties(this.forms.value.UF);
-      }, 500);
-
-      setTimeout(() => {
-        this._filter('a');
-      }, 700);
+      }, 300);
     });
 
     this.forms.get('UFNascimento')!.valueChanges.subscribe((value) => {
       setTimeout(() => {
         this.getBornCounties(this.forms.value.UFNascimento);
-      }, 500)
+      }, 300)
     });
 
     this.forms.get('CEP')!.valueChanges.subscribe((value) => {
@@ -107,10 +94,17 @@ export class FormsComponent {
         this.getAddress(value);
       }
     });
+
+    this.forms.get('municipio')!.valueChanges.subscribe((value) => {
+      this.findCounties(value);
+    });
+
+    this.forms.get('municipioNascimento')!.valueChanges.subscribe((value) => {
+      this.findCounties(value);
+    });
   }
 
   onSubmit() {
-    console.log(this.forms.value);
     this.pdfService.createPDF(this.forms.value);
   }
 
@@ -129,9 +123,21 @@ export class FormsComponent {
       next: (result: any) => {
         this.counties = [];
         this.counties = result;
-        // this.filteredOptions = result;
+        this.filteredCounties = result;
       }
     })
+  }
+
+  findCounties(term: string) {
+    if (!this.counties.length || term == '' || term == null) {
+      this.filteredCounties = this.counties;
+      return;
+    }
+
+    this.filteredCounties = this.counties.filter((country: any) => {
+      if (country.nome.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) >= 0) return true;
+      return false;
+    });
   }
 
   getBornCounties(UF: string) {
@@ -139,6 +145,7 @@ export class FormsComponent {
       next: (result: any) => {
         this.bornCounties = [];
         this.bornCounties = result;
+        this.filteredCounties = result;
       }
     })
   }
@@ -155,24 +162,5 @@ export class FormsComponent {
         });
       }
     })
-  }
-
-  private setUpperCaseOnInputChange() {
-    Object.keys(this.forms.controls).forEach(key => {
-      const control = this.forms.get(key);
-      if (control) {
-        control.valueChanges.subscribe(newValue => {
-          if (typeof newValue === 'string') {
-            control.setValue(newValue.toUpperCase(), { emitEvent: false });
-          }
-        });
-      }
-    });
-  }
-
-  private _filter(value: any): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.counties.filter((option: any) => option.nome.toLowerCase().includes(filterValue));
   }
 }
