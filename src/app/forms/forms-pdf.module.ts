@@ -12,6 +12,7 @@ import { AsyncPipe } from '@angular/common';
 import { DateFormatDirective } from '../directives/date-format.directive';
 import { RgFormatDirective } from '../directives/rg-format.directive';
 import { CpfFormatDirective } from '../directives/cpf-format.directive';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CpfFormatDirective } from '../directives/cpf-format.directive';
     MatSelectModule,
     MatIconModule,
     MatAutocompleteModule,
-    AsyncPipe
+    AsyncPipe,
+    MatProgressSpinnerModule
   ],
   exports: [
     FormsComponent

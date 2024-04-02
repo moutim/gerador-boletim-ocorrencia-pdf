@@ -360,4 +360,7 @@
 
 </form>
 
-<button (click)="onSubmit()" mat-raised-button color="primary" type="submit">Gerar pedido</button>
+<div>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <button *ngIf="!loading" (click)="onSubmit()" mat-raised-button color="primary" type="submit">Gerar pedido</button>
+</div>

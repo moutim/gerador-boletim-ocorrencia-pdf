@@ -17,6 +17,7 @@ export class FormsComponent {
   bornCounties: [] = [];
   statesDocument: [] = [];
   filteredCounties: any[] = [];
+  loading: boolean = false;
 
   constructor(
     private pdfService: CreatePdfService,
@@ -105,7 +106,11 @@ export class FormsComponent {
   }
 
   onSubmit() {
-    this.pdfService.createPDF(this.forms.value);
+    this.loading = true;
+
+    const result = this.pdfService.createPDF(this.forms.value);
+
+    if (result) this.loading = false;
   }
 
   getStates() {

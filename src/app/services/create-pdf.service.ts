@@ -771,5 +771,7 @@ export class CreatePdfService {
 
     const pdfDocGenerator = pdfMake.createPdf(docDefinition);
     pdfDocGenerator.open();
+
+    return true;
   }
 }
