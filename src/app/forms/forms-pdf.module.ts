@@ -10,11 +10,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AsyncPipe } from '@angular/common';
 import { DateFormatDirective } from '../directives/date-format.directive';
+import { RgFormatDirective } from '../directives/rg-format.directive';
+import { CpfFormatDirective } from '../directives/cpf-format.directive';
 
 @NgModule({
   declarations: [
     FormsComponent,
-    DateFormatDirective
+    DateFormatDirective,
+    RgFormatDirective,
+    CpfFormatDirective
   ],
   imports: [
     CommonModule,
