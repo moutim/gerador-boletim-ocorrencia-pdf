@@ -24,3 +24,4 @@ Para utilizar a aplicação, acesse o seguinte link: [https://identificacao-crim
 - Angular Material
 - API do IBGE (Instituto Brasileiro de Geografia e Estatística)
 - API do VIACEP
+- pdfMake
