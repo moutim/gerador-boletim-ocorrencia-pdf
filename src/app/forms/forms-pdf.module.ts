@@ -9,10 +9,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AsyncPipe } from '@angular/common';
+import { DateFormatDirective } from '../directives/date-format.directive';
 
 @NgModule({
   declarations: [
-    FormsComponent
+    FormsComponent,
+    DateFormatDirective
   ],
   imports: [
     CommonModule,
