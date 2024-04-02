@@ -1,27 +1,26 @@
-# GeradorBoletim
+# Gerador de Ficha de Identificação Criminal
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+Este é um projeto desenvolvido utilizando Angular e Angular Material para a criação de uma ficha de identificação criminal a partir de um formulário de informações. A aplicação faz uso da API do IBGE para buscar estados e municípios, e da API do VIACEP para buscar endereços a partir do CEP. Além disso, a aplicação gera um arquivo PDF automaticamente com os dados inseridos no formulário.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+![image](https://github.com/moutim/gerador-identificacao-criminal-pdf/assets/88093439/a2b2e7ff-f245-4b24-9368-97d3295f8435)
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Funcionalidades
 
-## Build
+- Formulário interativo para inserção de informações pessoais e criminais.
+- Busca dinâmica de estados e municípios utilizando a API do IBGE.
+- Busca automática de endereço ao preencher o CEP utilizando a API do VIACEP.
+- Visualização e edição dos dados inseridos na ficha de identificação.
+- Geração de um arquivo PDF contendo os dados inseridos no formulário.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Como Utilizar
 
-## Running unit tests
+Para utilizar a aplicação, acesse o seguinte link: [https://identificacao-criminal.vercel.app/](https://identificacao-criminal.vercel.app/), preencha os dados no formulário e clique em "Gerar" para obter a ficha de identificação criminal.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Tecnologias Utilizadas
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Angular
+- Angular Material
+- API do IBGE (Instituto Brasileiro de Geografia e Estatística)
+- API do VIACEP
