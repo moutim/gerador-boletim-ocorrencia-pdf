@@ -149,9 +149,14 @@
     </mat-form-field>
 
     <mat-form-field class="width-input">
-      <mat-label>Estado Civil</mat-label>
-      <input matInput placeholder="Ex. Casado" formControlName="estadoCivil">
-      <mat-hint>Ex. Casado</mat-hint>
+      <mat-label>Estado civil</mat-label>
+      <mat-select formControlName="estadoCivil">
+        <mat-option value="Solteiro (a)">Solteiro (a)</mat-option>
+        <mat-option value="Casado (a)">Casado (a)</mat-option>
+        <mat-option value="Divorciado  (a)">Divorciado (a)</mat-option>
+        <mat-option value="Viúvo (a)">Viúvo (a)</mat-option>
+      </mat-select>
+      <mat-hint>Ex. Solteiro (a)</mat-hint>
     </mat-form-field>
   </div>
 

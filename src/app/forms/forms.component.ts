@@ -105,9 +105,7 @@ export class FormsComponent {
   }
 
   onSubmit() {
-    console.log(this.forms.value);
-
-    // this.pdfService.createPDF(this.forms.value);
+    this.pdfService.createPDF(this.forms.value);
   }
 
   getStates() {
