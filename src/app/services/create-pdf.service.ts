@@ -251,7 +251,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: infos.sexo == 'MASCULINO' ? 'M' : 'F',
+                      text: infos.sexo,
                       style: ['content'],
                     },
                   ],
@@ -598,7 +598,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: infos.infracao,
+                      text: `${infos.infracao}; ${infos.infracaoPersonalizada || ''}`,
                       style: ['content'],
                     },
                   ],
@@ -703,7 +703,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: infos.porteArma,
+                      text: infos.porteArma ? infos.porteArma : 'NÃO POSSUI',
                       style: ['content'],
                     },
                   ],
@@ -715,7 +715,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: infos.orgaoEmissorArma,
+                      text: infos.orgaoEmissorArma ? infos.orgaoEmissorArma : 'NÃO POSSUI',
                       style: ['content'],
                     },
                   ],
@@ -729,7 +729,7 @@ export class CreatePdfService {
                       style: 'title',
                     },
                     {
-                      text: infos.identificacaoArma,
+                      text: infos.identificacaoArma ? infos.identificacaoArma : '00/00/0000',
                       style: ['content'],
                     },
                   ],

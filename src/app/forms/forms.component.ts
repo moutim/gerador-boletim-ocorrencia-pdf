@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CreatePdfService } from '../services/create-pdf.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { StatesService } from '../services/states.service';
-import { Observable, map, of, startWith } from 'rxjs';
+import { LawsService } from '../services/laws.service';
 
 @Component({
   selector: 'app-forms',
@@ -17,13 +17,16 @@ export class FormsComponent {
   bornCounties: [] = [];
   statesDocument: [] = [];
   filteredCounties: any[] = [];
+  laws: [] = [];
+  filteredLaws: any[] = [];
   loading: boolean = false;
 
   constructor(
     private pdfService: CreatePdfService,
     private formBuilder: FormBuilder,
-    private stateService: StatesService
-  ) { }
+    private stateService: StatesService,
+    private lawService: LawsService
+    ) { }
 
   ngOnInit() {
     this.forms = this.formBuilder.group({
@@ -62,6 +65,7 @@ export class FormsComponent {
       numeroTelefone: [null, Validators.required],
       vitimas: [null, Validators.required],
       infracao: [null, Validators.required],
+      infracaoPersonalizada: [null, Validators.required],
       numeroProcesso: [null, Validators.required],
       orgaoProcesso: [null, Validators.required],
       situacaoProcesso: [null, Validators.required],
@@ -76,18 +80,19 @@ export class FormsComponent {
       filter: [null, Validators.required],
     });
 
+    this.getLaws();
     this.getStates();
 
     this.forms.get('UF')!.valueChanges.subscribe((value) => {
       setTimeout(() => {
         this.getCounties(this.forms.value.UF);
-      }, 300);
+      }, 200);
     });
 
     this.forms.get('UFNascimento')!.valueChanges.subscribe((value) => {
       setTimeout(() => {
-        this.getBornCounties(this.forms.value.UFNascimento);
-      }, 300)
+        this.getCounties(this.forms.value.UFNascimento);
+      }, 200)
     });
 
     this.forms.get('CEP')!.valueChanges.subscribe((value) => {
@@ -103,6 +108,10 @@ export class FormsComponent {
     this.forms.get('municipioNascimento')!.valueChanges.subscribe((value) => {
       this.findCounties(value);
     });
+
+    this.forms.get('infracao')!.valueChanges.subscribe((value) => {
+      this.findLaws(value);
+    });
   }
 
   onSubmit() {
@@ -113,6 +122,34 @@ export class FormsComponent {
     if (result) this.loading = false;
   }
 
+  getLaws() {
+    this.lawService.getLaws().subscribe({
+      next: (result: any) => {
+        result.data.returnData.forEach((law: any) => {
+          law.value = `${law.mnemonico} - ${law.descricao}`
+        });
+        this.laws = result.data.returnData;
+        this.filteredLaws = result.data.returnData;
+      }
+    });
+  }
+
+  findLaws(term: string) {
+    if (term == '' || term == null) {
+      this.filteredLaws = this.laws;
+      return;
+    }
+
+    this.filteredLaws = this.laws.filter((law: any) => {
+      if (
+        law.descricao.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) >= 0
+        || law.mnemonico.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) >= 0
+      ) return true;
+      return false;
+    });
+  }
+
+
   getStates() {
     this.stateService.getStates().subscribe({
       next: (result: any) => {
@@ -120,7 +157,7 @@ export class FormsComponent {
         this.bornStates = result;
         this.statesDocument = result;
       }
-    })
+    });
   }
 
   getCounties(UF: string) {
@@ -130,11 +167,11 @@ export class FormsComponent {
         this.counties = result;
         this.filteredCounties = result;
       }
-    })
+    });
   }
 
   findCounties(term: string) {
-    if (!this.counties.length || term == '' || term == null) {
+    if (term == '' || term == null) {
       this.filteredCounties = this.counties;
       return;
     }
@@ -143,16 +180,6 @@ export class FormsComponent {
       if (country.nome.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) >= 0) return true;
       return false;
     });
-  }
-
-  getBornCounties(UF: string) {
-    this.stateService.getCounties(UF).subscribe({
-      next: (result: any) => {
-        this.bornCounties = [];
-        this.bornCounties = result;
-        this.filteredCounties = result;
-      }
-    })
   }
 
   getAddress(CEP: string) {
@@ -166,6 +193,6 @@ export class FormsComponent {
           municipioEstado: `${result.localidade} - ${result.uf}`
         });
       }
-    })
+    });
   }
 }

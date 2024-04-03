@@ -270,9 +270,25 @@
     </mat-form-field>
 
     <mat-form-field class="width-input">
-      <mat-label>Infração Penal</mat-label>
-      <input matInput placeholder="Ex. Art. 157 - Subtrair coisa móvel..." formControlName="infracao">
-      <mat-hint>Ex. Art. 157 - Subtrair coisa móvel...</mat-hint>
+      <mat-label>Infração Penal - Predefinida</mat-label>
+      <input
+        type="text"
+        placeholder="Escolha uma ou mais infrações penais"
+        matInput
+        formControlName="infracao"
+        [matAutocomplete]="infracao" >
+      <mat-autocomplete #infracao="matAutocomplete">
+        <mat-option *ngFor="let item of filteredLaws" [value]="item['value']">{{ item["mnemonico"] }} - {{ item["descricao"] }}</mat-option>
+      </mat-autocomplete>
+      <mat-hint>Ex. 7.209/84 - CRIME NEGLIGÊNCIA</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="width-input">
+      <mat-label>Infração Penal - Personalizada</mat-label>
+      <input matInput placeholder="Ex. Art. 157 - Subtrair coisa móvel..." formControlName="infracaoPersonalizada">
+      <mat-hint>Ex. Art. 157 - Subtrair coisa móvel; Art. 777..</mat-hint>
     </mat-form-field>
   </div>
 

@@ -21,6 +21,7 @@ export interface IPDFInfo {
   identificacao: string;
   identificacaoArma: string;
   infracao: string;
+  infracaoPersonalizada: string;
   instrucao: string;
   municipio: string;
   municipioEstado: string;
